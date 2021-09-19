@@ -1818,7 +1818,7 @@
    i32.const 0
    i32.store
    local.get $1
-   i32.const 4
+   i32.const 6
    i32.const 3
    call $~lib/rt/itcms/__new
    local.tee $2
@@ -1829,6 +1829,9 @@
    local.get $2
    i32.const 0
    call $~lib/rt/itcms/__link
+   local.get $2
+   i32.const 0
+   i32.store16 offset=4
    global.get $~lib/memory/__stack_pointer
    i32.const 4
    i32.sub
@@ -1842,7 +1845,7 @@
    i32.const 0
    i32.store
    local.get $1
-   i32.const 16
+   i32.const 20
    i32.const 4
    call $~lib/rt/itcms/__new
    local.tee $1
@@ -1866,14 +1869,20 @@
    i32.const 0
    call $~lib/rt/itcms/__link
    local.get $1
-   i32.const 0
+   i32.const 255
    i32.store8 offset=12
    local.get $1
-   i32.const 0
+   i32.const 255
    i32.store8 offset=13
    local.get $1
    i32.const 0
    i32.store16 offset=14
+   local.get $1
+   i32.const 0
+   i32.store16 offset=16
+   local.get $1
+   i32.const 0
+   i32.store16 offset=18
    global.get $~lib/memory/__stack_pointer
    i32.const 4
    i32.sub
@@ -1893,16 +1902,16 @@
    local.tee $0
    i32.store
    local.get $0
-   i32.const 0
+   i32.const 65535
    i32.store16
    local.get $0
-   i32.const 0
+   i32.const 65535
    i32.store16 offset=2
    local.get $0
-   i32.const 0
+   i32.const 65535
    i32.store16 offset=4
    local.get $0
-   i32.const 0
+   i32.const 65535
    i32.store16 offset=6
    global.get $~lib/memory/__stack_pointer
    i32.const 4
@@ -1933,16 +1942,16 @@
    local.tee $0
    i32.store
    local.get $0
-   i32.const 0
+   i32.const 65535
    i32.store16
    local.get $0
-   i32.const 0
+   i32.const 65535
    i32.store16 offset=2
    local.get $0
-   i32.const 0
+   i32.const 65535
    i32.store16 offset=4
    local.get $0
-   i32.const 0
+   i32.const 65535
    i32.store16 offset=6
    global.get $~lib/memory/__stack_pointer
    i32.const 4
@@ -1973,13 +1982,13 @@
    local.tee $0
    i32.store
    local.get $0
-   i32.const 0
+   i32.const 65535
    i32.store16
    local.get $0
-   i32.const 0
+   i32.const 65535
    i32.store16 offset=2
    local.get $0
-   i32.const 0
+   i32.const 65535
    i32.store16 offset=4
    global.get $~lib/memory/__stack_pointer
    i32.const 4
