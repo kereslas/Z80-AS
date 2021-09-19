@@ -1,5 +1,5 @@
 import { CPU } from "./cpu";
 
-const cpu = new CPU();
+const cpu: CPU | null = new CPU();
 
 export { cpu };

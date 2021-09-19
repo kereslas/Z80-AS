@@ -8,7 +8,6 @@
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $none_=>_i32 (func (result i32)))
- (type $i32_f64_=>_none (func (param i32 f64)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (global $~lib/rt/itcms/total (mut i32) (i32.const 0))
  (global $~lib/rt/itcms/threshold (mut i32) (i32.const 0))
@@ -24,9 +23,9 @@
  (global $~lib/ASC_SHRINK_LEVEL i32 (i32.const 0))
  (global $assembly/index/cpu (mut i32) (i32.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 416))
- (global $~lib/memory/__data_end i32 (i32.const 452))
- (global $~lib/memory/__stack_pointer (mut i32) (i32.const 16836))
- (global $~lib/memory/__heap_base i32 (i32.const 16836))
+ (global $~lib/memory/__data_end i32 (i32.const 484))
+ (global $~lib/memory/__stack_pointer (mut i32) (i32.const 16868))
+ (global $~lib/memory/__heap_base i32 (i32.const 16868))
  (memory $0 1)
  (data (i32.const 12) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00(\00\00\00A\00l\00l\00o\00c\00a\00t\00i\00o\00n\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e\00\00\00\00\00")
  (data (i32.const 76) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00 \00\00\00~\00l\00i\00b\00/\00r\00t\00/\00i\00t\00c\00m\00s\00.\00t\00s\00\00\00\00\00\00\00\00\00\00\00\00\00")
@@ -36,7 +35,7 @@
  (data (i32.const 268) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\14\00\00\00~\00l\00i\00b\00/\00r\00t\00.\00t\00s\00\00\00\00\00\00\00\00\00")
  (data (i32.const 320) "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 348) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 416) "\04\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00 \00\00\00\00\00\00\00")
+ (data (i32.const 416) "\08\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00")
  (table $0 1 funcref)
  (elem $0 (i32.const 1))
  (export "cpu" (global $assembly/index/cpu))
@@ -2344,10 +2343,179 @@
   call $~lib/memory/memory.fill
   local.get $3
  )
- (func $assembly/cpu/CPU#set:pc (param $0 i32) (param $1 f64)
+ (func $assembly/registers/MainRegisters#set:af (param $0 i32) (param $1 i32)
   local.get $0
   local.get $1
-  f64.store
+  i32.store16
+ )
+ (func $assembly/registers/MainRegisters#set:bc (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16 offset=2
+ )
+ (func $assembly/registers/MainRegisters#set:de (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16 offset=4
+ )
+ (func $assembly/registers/MainRegisters#set:hl (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16 offset=6
+ )
+ (func $~lib/rt/itcms/__link (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $1
+  i32.eqz
+  if
+   return
+  end
+  i32.const 1
+  drop
+  local.get $0
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 96
+   i32.const 294
+   i32.const 14
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $1
+  i32.const 20
+  i32.sub
+  local.set $3
+  local.get $3
+  call $~lib/rt/itcms/Object#get:color
+  global.get $~lib/rt/itcms/white
+  i32.eq
+  if
+   local.get $0
+   i32.const 20
+   i32.sub
+   local.set $4
+   local.get $4
+   call $~lib/rt/itcms/Object#get:color
+   local.set $5
+   local.get $5
+   global.get $~lib/rt/itcms/white
+   i32.eqz
+   i32.eq
+   if
+    local.get $2
+    if
+     local.get $4
+     call $~lib/rt/itcms/Object#makeGray
+    else
+     local.get $3
+     call $~lib/rt/itcms/Object#makeGray
+    end
+   else
+    local.get $5
+    i32.const 3
+    i32.eq
+    if (result i32)
+     global.get $~lib/rt/itcms/state
+     i32.const 1
+     i32.eq
+    else
+     i32.const 0
+    end
+    if
+     local.get $3
+     call $~lib/rt/itcms/Object#makeGray
+    end
+   end
+  end
+ )
+ (func $assembly/registers/Registers#set:mainRegisters (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store
+  local.get $0
+  local.get $1
+  i32.const 0
+  call $~lib/rt/itcms/__link
+ )
+ (func $assembly/registers/AlternateRegisters#set:af (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16
+ )
+ (func $assembly/registers/AlternateRegisters#set:bc (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16 offset=2
+ )
+ (func $assembly/registers/AlternateRegisters#set:de (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16 offset=4
+ )
+ (func $assembly/registers/AlternateRegisters#set:hl (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16 offset=6
+ )
+ (func $assembly/registers/Registers#set:alternateRegisters (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store offset=4
+  local.get $0
+  local.get $1
+  i32.const 0
+  call $~lib/rt/itcms/__link
+ )
+ (func $assembly/registers/IndexRegisters#set:ix (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16
+ )
+ (func $assembly/registers/IndexRegisters#set:iy (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16 offset=2
+ )
+ (func $assembly/registers/IndexRegisters#set:sp (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16 offset=4
+ )
+ (func $assembly/registers/Registers#set:indexRegisters (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store offset=8
+  local.get $0
+  local.get $1
+  i32.const 0
+  call $~lib/rt/itcms/__link
+ )
+ (func $assembly/registers/Registers#set:i (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store8 offset=12
+ )
+ (func $assembly/registers/Registers#set:r (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store8 offset=13
+ )
+ (func $assembly/registers/Registers#set:pc (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16 offset=14
+ )
+ (func $assembly/cpu/CPU#set:registers (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store
+  local.get $0
+  local.get $1
+  i32.const 0
+  call $~lib/rt/itcms/__link
  )
  (func $start:assembly/index
   memory.size
@@ -2398,25 +2566,81 @@
    call $~lib/rt/itcms/__visit
   end
  )
+ (func $assembly/cpu/CPU~visit (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  local.get $0
+  i32.load
+  local.tee $2
+  if
+   local.get $2
+   local.get $1
+   call $~lib/rt/itcms/__visit
+  end
+ )
+ (func $assembly/registers/Registers~visit (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  local.get $0
+  i32.load
+  local.tee $2
+  if
+   local.get $2
+   local.get $1
+   call $~lib/rt/itcms/__visit
+  end
+  local.get $0
+  i32.load offset=4
+  local.tee $2
+  if
+   local.get $2
+   local.get $1
+   call $~lib/rt/itcms/__visit
+  end
+  local.get $0
+  i32.load offset=8
+  local.tee $2
+  if
+   local.get $2
+   local.get $1
+   call $~lib/rt/itcms/__visit
+  end
+ )
  (func $~lib/rt/__visit_members (param $0 i32) (param $1 i32)
   block $invalid
-   block $assembly/cpu/CPU
-    block $~lib/arraybuffer/ArrayBufferView
-     block $~lib/string/String
-      block $~lib/arraybuffer/ArrayBuffer
+   block $assembly/registers/IndexRegisters
+    block $assembly/registers/AlternateRegisters
+     block $assembly/registers/MainRegisters
+      block $assembly/registers/Registers
+       block $assembly/cpu/CPU
+        block $~lib/arraybuffer/ArrayBufferView
+         block $~lib/string/String
+          block $~lib/arraybuffer/ArrayBuffer
+           local.get $0
+           i32.const 8
+           i32.sub
+           i32.load
+           br_table $~lib/arraybuffer/ArrayBuffer $~lib/string/String $~lib/arraybuffer/ArrayBufferView $assembly/cpu/CPU $assembly/registers/Registers $assembly/registers/MainRegisters $assembly/registers/AlternateRegisters $assembly/registers/IndexRegisters $invalid
+          end
+          return
+         end
+         return
+        end
+        local.get $0
+        local.get $1
+        call $~lib/arraybuffer/ArrayBufferView~visit
+        return
+       end
        local.get $0
-       i32.const 8
-       i32.sub
-       i32.load
-       br_table $~lib/arraybuffer/ArrayBuffer $~lib/string/String $~lib/arraybuffer/ArrayBufferView $assembly/cpu/CPU $invalid
+       local.get $1
+       call $assembly/cpu/CPU~visit
+       return
       end
+      local.get $0
+      local.get $1
+      call $assembly/registers/Registers~visit
       return
      end
      return
     end
-    local.get $0
-    local.get $1
-    call $~lib/arraybuffer/ArrayBufferView~visit
     return
    end
    return
@@ -2431,13 +2655,188 @@
   global.get $~lib/memory/__data_end
   i32.lt_s
   if
-   i32.const 16864
-   i32.const 16912
+   i32.const 16896
+   i32.const 16944
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
    unreachable
   end
+ )
+ (func $assembly/registers/MainRegisters#constructor (param $0 i32) (result i32)
+  (local $1 i32)
+  global.get $~lib/memory/__stack_pointer
+  i32.const 4
+  i32.sub
+  global.set $~lib/memory/__stack_pointer
+  call $~stack_check
+  global.get $~lib/memory/__stack_pointer
+  i32.const 0
+  i32.store
+  local.get $0
+  i32.eqz
+  if
+   global.get $~lib/memory/__stack_pointer
+   i32.const 8
+   i32.const 5
+   call $~lib/rt/itcms/__new
+   local.tee $0
+   i32.store
+  end
+  local.get $0
+  i32.const 0
+  call $assembly/registers/MainRegisters#set:af
+  local.get $0
+  i32.const 0
+  call $assembly/registers/MainRegisters#set:bc
+  local.get $0
+  i32.const 0
+  call $assembly/registers/MainRegisters#set:de
+  local.get $0
+  i32.const 0
+  call $assembly/registers/MainRegisters#set:hl
+  local.get $0
+  local.set $1
+  global.get $~lib/memory/__stack_pointer
+  i32.const 4
+  i32.add
+  global.set $~lib/memory/__stack_pointer
+  local.get $1
+ )
+ (func $assembly/registers/AlternateRegisters#constructor (param $0 i32) (result i32)
+  (local $1 i32)
+  global.get $~lib/memory/__stack_pointer
+  i32.const 4
+  i32.sub
+  global.set $~lib/memory/__stack_pointer
+  call $~stack_check
+  global.get $~lib/memory/__stack_pointer
+  i32.const 0
+  i32.store
+  local.get $0
+  i32.eqz
+  if
+   global.get $~lib/memory/__stack_pointer
+   i32.const 8
+   i32.const 6
+   call $~lib/rt/itcms/__new
+   local.tee $0
+   i32.store
+  end
+  local.get $0
+  i32.const 0
+  call $assembly/registers/AlternateRegisters#set:af
+  local.get $0
+  i32.const 0
+  call $assembly/registers/AlternateRegisters#set:bc
+  local.get $0
+  i32.const 0
+  call $assembly/registers/AlternateRegisters#set:de
+  local.get $0
+  i32.const 0
+  call $assembly/registers/AlternateRegisters#set:hl
+  local.get $0
+  local.set $1
+  global.get $~lib/memory/__stack_pointer
+  i32.const 4
+  i32.add
+  global.set $~lib/memory/__stack_pointer
+  local.get $1
+ )
+ (func $assembly/registers/IndexRegisters#constructor (param $0 i32) (result i32)
+  (local $1 i32)
+  global.get $~lib/memory/__stack_pointer
+  i32.const 4
+  i32.sub
+  global.set $~lib/memory/__stack_pointer
+  call $~stack_check
+  global.get $~lib/memory/__stack_pointer
+  i32.const 0
+  i32.store
+  local.get $0
+  i32.eqz
+  if
+   global.get $~lib/memory/__stack_pointer
+   i32.const 6
+   i32.const 7
+   call $~lib/rt/itcms/__new
+   local.tee $0
+   i32.store
+  end
+  local.get $0
+  i32.const 0
+  call $assembly/registers/IndexRegisters#set:ix
+  local.get $0
+  i32.const 0
+  call $assembly/registers/IndexRegisters#set:iy
+  local.get $0
+  i32.const 0
+  call $assembly/registers/IndexRegisters#set:sp
+  local.get $0
+  local.set $1
+  global.get $~lib/memory/__stack_pointer
+  i32.const 4
+  i32.add
+  global.set $~lib/memory/__stack_pointer
+  local.get $1
+ )
+ (func $assembly/registers/Registers#constructor (param $0 i32) (result i32)
+  (local $1 i32)
+  global.get $~lib/memory/__stack_pointer
+  i32.const 4
+  i32.sub
+  global.set $~lib/memory/__stack_pointer
+  call $~stack_check
+  global.get $~lib/memory/__stack_pointer
+  i32.const 0
+  i32.store
+  local.get $0
+  i32.eqz
+  if
+   global.get $~lib/memory/__stack_pointer
+   i32.const 16
+   i32.const 4
+   call $~lib/rt/itcms/__new
+   local.tee $0
+   i32.store
+  end
+  local.get $0
+  i32.const 0
+  call $assembly/registers/Registers#set:mainRegisters
+  local.get $0
+  i32.const 0
+  call $assembly/registers/Registers#set:alternateRegisters
+  local.get $0
+  i32.const 0
+  call $assembly/registers/Registers#set:indexRegisters
+  local.get $0
+  i32.const 0
+  call $assembly/registers/Registers#set:i
+  local.get $0
+  i32.const 0
+  call $assembly/registers/Registers#set:r
+  local.get $0
+  i32.const 0
+  call $assembly/registers/Registers#set:pc
+  local.get $0
+  i32.const 0
+  call $assembly/registers/MainRegisters#constructor
+  call $assembly/registers/Registers#set:mainRegisters
+  local.get $0
+  i32.const 0
+  call $assembly/registers/AlternateRegisters#constructor
+  call $assembly/registers/Registers#set:alternateRegisters
+  local.get $0
+  i32.const 0
+  call $assembly/registers/IndexRegisters#constructor
+  call $assembly/registers/Registers#set:indexRegisters
+  local.get $0
+  local.set $1
+  global.get $~lib/memory/__stack_pointer
+  i32.const 4
+  i32.add
+  global.set $~lib/memory/__stack_pointer
+  local.get $1
  )
  (func $assembly/cpu/CPU#constructor (param $0 i32) (result i32)
   (local $1 i32)
@@ -2453,15 +2852,19 @@
   i32.eqz
   if
    global.get $~lib/memory/__stack_pointer
-   i32.const 8
+   i32.const 4
    i32.const 3
    call $~lib/rt/itcms/__new
    local.tee $0
    i32.store
   end
   local.get $0
-  f64.const 0
-  call $assembly/cpu/CPU#set:pc
+  i32.const 0
+  call $assembly/cpu/CPU#set:registers
+  local.get $0
+  i32.const 0
+  call $assembly/registers/Registers#constructor
+  call $assembly/cpu/CPU#set:registers
   local.get $0
   local.set $1
   global.get $~lib/memory/__stack_pointer
