@@ -29,6 +29,12 @@
   },
   "devDependencies": {
     "@as-pect/cli": "^6.2.4",
-    "assemblyscript": "^0.19.16"
+    "assemblyscript": "^0.19.16",
+    "husky": "^7.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test:ci"
+    }
   }
 }

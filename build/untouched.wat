@@ -2508,6 +2508,16 @@
   local.get $1
   i32.store16 offset=14
  )
+ (func $assembly/registers/Registers#set:iff1 (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16 offset=16
+ )
+ (func $assembly/registers/Registers#set:iff2 (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16 offset=18
+ )
  (func $assembly/cpu/CPU#set:registers (param $0 i32) (param $1 i32)
   local.get $0
   local.get $1
@@ -2516,6 +2526,11 @@
   local.get $1
   i32.const 0
   call $~lib/rt/itcms/__link
+ )
+ (func $assembly/cpu/CPU#set:im (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store16 offset=4
  )
  (func $start:assembly/index
   memory.size
@@ -2684,16 +2699,16 @@
    i32.store
   end
   local.get $0
-  i32.const 0
+  i32.const 65535
   call $assembly/registers/MainRegisters#set:af
   local.get $0
-  i32.const 0
+  i32.const 65535
   call $assembly/registers/MainRegisters#set:bc
   local.get $0
-  i32.const 0
+  i32.const 65535
   call $assembly/registers/MainRegisters#set:de
   local.get $0
-  i32.const 0
+  i32.const 65535
   call $assembly/registers/MainRegisters#set:hl
   local.get $0
   local.set $1
@@ -2724,16 +2739,16 @@
    i32.store
   end
   local.get $0
-  i32.const 0
+  i32.const 65535
   call $assembly/registers/AlternateRegisters#set:af
   local.get $0
-  i32.const 0
+  i32.const 65535
   call $assembly/registers/AlternateRegisters#set:bc
   local.get $0
-  i32.const 0
+  i32.const 65535
   call $assembly/registers/AlternateRegisters#set:de
   local.get $0
-  i32.const 0
+  i32.const 65535
   call $assembly/registers/AlternateRegisters#set:hl
   local.get $0
   local.set $1
@@ -2764,13 +2779,13 @@
    i32.store
   end
   local.get $0
-  i32.const 0
+  i32.const 65535
   call $assembly/registers/IndexRegisters#set:ix
   local.get $0
-  i32.const 0
+  i32.const 65535
   call $assembly/registers/IndexRegisters#set:iy
   local.get $0
-  i32.const 0
+  i32.const 65535
   call $assembly/registers/IndexRegisters#set:sp
   local.get $0
   local.set $1
@@ -2794,7 +2809,7 @@
   i32.eqz
   if
    global.get $~lib/memory/__stack_pointer
-   i32.const 16
+   i32.const 20
    i32.const 4
    call $~lib/rt/itcms/__new
    local.tee $0
@@ -2810,14 +2825,20 @@
   i32.const 0
   call $assembly/registers/Registers#set:indexRegisters
   local.get $0
-  i32.const 0
+  i32.const 255
   call $assembly/registers/Registers#set:i
   local.get $0
-  i32.const 0
+  i32.const 255
   call $assembly/registers/Registers#set:r
   local.get $0
   i32.const 0
   call $assembly/registers/Registers#set:pc
+  local.get $0
+  i32.const 0
+  call $assembly/registers/Registers#set:iff1
+  local.get $0
+  i32.const 0
+  call $assembly/registers/Registers#set:iff2
   local.get $0
   i32.const 0
   call $assembly/registers/MainRegisters#constructor
@@ -2852,7 +2873,7 @@
   i32.eqz
   if
    global.get $~lib/memory/__stack_pointer
-   i32.const 4
+   i32.const 6
    i32.const 3
    call $~lib/rt/itcms/__new
    local.tee $0
@@ -2861,6 +2882,9 @@
   local.get $0
   i32.const 0
   call $assembly/cpu/CPU#set:registers
+  local.get $0
+  i32.const 0
+  call $assembly/cpu/CPU#set:im
   local.get $0
   i32.const 0
   call $assembly/registers/Registers#constructor
