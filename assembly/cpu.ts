@@ -1,11 +1,17 @@
+import { Registers } from "./registers";
+
 export class CPU {
-  public pc: number;
+  registers: Registers;
+
+  constructor() {
+    this.registers = new Registers();
+  }
 
   reset(): void {
-    this.pc = 0;
+    this.registers.reset();
   }
 
   execute(): void {
-    this.pc += 1;
+    this.registers.pc += 1;
   }
 }
